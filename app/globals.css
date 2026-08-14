@@ -1,0 +1,168 @@
+:root {
+  --ink: #1e1b4b;
+  --skin: #f7c9a4;
+  --hair: #4b3621;
+  --shirt: #6366f1;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: linear-gradient(140deg, #eef2ff, #fdf2f8 55%, #ecfeff);
+  background-size: 200% 200%;
+  animation: drift 18s ease-in-out infinite;
+}
+
+@keyframes drift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ---------- nav ---------- */
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 28px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(99, 102, 241, 0.15);
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.links { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.nav-btn {
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-weight: 600;
+  color: var(--ink);
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.nav-btn:hover { background: rgba(99, 102, 241, 0.14); transform: translateY(-2px); }
+.nav-btn:focus-visible { outline: 2px solid var(--shirt); outline-offset: 2px; }
+
+/* ---------- stage ---------- */
+.stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px 80px;
+  text-align: center;
+}
+
+.kid { width: min(340px, 80vw); height: auto; overflow: visible; }
+
+.sub { margin: 10px 0 0; opacity: 0.7; }
+
+/* ---------- kid ---------- */
+.skin { fill: var(--skin); }
+.hair { fill: var(--hair); }
+.shirt { fill: var(--shirt); }
+.sclera { fill: #fff; }
+.pupil { fill: #26233a; }
+.lid { fill: var(--skin); transform-box: fill-box; transform-origin: top; transform: scaleY(0); }
+.blush { fill: #fb7185; opacity: 0.35; }
+.mouth { fill: none; stroke: #26233a; stroke-width: 3.5; stroke-linecap: round; }
+.limb { fill: none; stroke: var(--skin); stroke-width: 16; stroke-linecap: round; }
+.hand { stroke: none; }
+
+.bob { transform-box: fill-box; transform-origin: bottom center; animation: bob 3.4s ease-in-out infinite; }
+@keyframes bob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  35% { transform: translateY(-6px) rotate(-1.5deg); }
+  70% { transform: translateY(-3px) rotate(1.5deg); }
+}
+
+/* eyes darting around */
+.pupils { animation: look 6s ease-in-out infinite; }
+@keyframes look {
+  0%, 12% { transform: translate(0, 0); }
+  20%, 32% { transform: translate(6px, -1px); }
+  40%, 52% { transform: translate(-6px, 1px); }
+  60%, 70% { transform: translate(2px, 4px); }
+  78%, 100% { transform: translate(0, 0); }
+}
+
+.lid { animation: blink 6s ease-in-out infinite; }
+@keyframes blink {
+  0%, 16%, 20%, 46%, 50%, 84%, 88%, 100% { transform: scaleY(0); }
+  18%, 48%, 86% { transform: scaleY(1); }
+}
+
+/* arm tapping the glass */
+.arm { transform-box: fill-box; transform-origin: 0% 100%; animation: tap 2.6s ease-in-out infinite; }
+@keyframes tap {
+  0%, 55%, 100% { transform: rotate(0deg); }
+  65% { transform: rotate(-7deg); }
+  75% { transform: rotate(1deg); }
+  85% { transform: rotate(-4deg); }
+}
+
+.ripple {
+  fill: none;
+  stroke: var(--shirt);
+  stroke-width: 3;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ripple 2.6s ease-out infinite;
+  opacity: 0;
+}
+.ripple.r2 { animation-delay: 0.25s; }
+@keyframes ripple {
+  0%, 60% { transform: scale(0.4); opacity: 0; }
+  70% { opacity: 0.6; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+/* ---------- work in progress text ---------- */
+.wip {
+  margin: 28px 0 0;
+  font-size: clamp(28px, 6vw, 54px);
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.wip span {
+  display: inline-block;
+  white-space: pre;
+  background: linear-gradient(90deg, #6366f1, #ec4899, #06b6d4, #6366f1);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: wave 2.2s ease-in-out infinite, shimmer 6s linear infinite;
+}
+
+@keyframes wave {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-12px); }
+}
+
+@keyframes shimmer {
+  to { background-position: -300% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .wip span { color: var(--shirt); }
+}
